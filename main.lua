@@ -1,3 +1,4 @@
+loadstring([[ -- paste your full code here from local Players = ... to the last print
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
@@ -296,3 +297,4 @@ CreateButton("[ FAKE CONSOLE INFECT ]", 0.78, FakeConsole)
 CreateButton("[ JUMPSCARE ATTACK ]", 0.84, Jumpscare)
 
 print("[ EXOVM GUI FINAL ] -- SYSTEM: INFECTED | ESCAPE: 0% | STATUS: HOPELESS")
+]])()
