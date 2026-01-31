@@ -1,31 +1,10 @@
-loadstring([[ -- paste your full code here from local Players = ... to the last print
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 local Lighting = game:GetService("Lighting")
 local Workspace = game.Workspace
-local RS = game:GetService("ReplicatedStorage")
 
-local foundRemote = nil
-for _, v in pairs(RS:GetDescendants()) do
-    if v:IsA("RemoteEvent") and (v.Name:match("Execute") or v.Name:match("Admin") or v.Name:match("Run")) then
-        foundRemote = v
-        break
-    end
-end
-if not foundRemote then
-    for _, v in pairs(game:GetDescendants()) do
-        if v:IsA("RemoteEvent") and v.Name:lower():match("backdoor") then
-            foundRemote = v
-            break
-        end
-    end
-end
-
-local function serverCmd(cmd)
-    if foundRemote then foundRemote:FireServer(cmd) end
-end
-
+-- MAIN GUI
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "EXOVM"
 ScreenGui.ResetOnSpawn = false
@@ -71,7 +50,7 @@ ScrollingFrame.ScrollBarImageColor3 = Color3.fromRGB(0, 255, 0)
 ScrollingFrame.BackgroundTransparency = 1
 ScrollingFrame.Parent = Frame
 
-local function CreateButton(text, position, callback)
+function CreateButton(text, position, callback)
     local Button = Instance.new("TextButton")
     Button.Size = UDim2.new(0.9, 0, 0, 40)
     Button.Position = UDim2.new(0.05, 0, position, 0)
@@ -85,7 +64,6 @@ local function CreateButton(text, position, callback)
 end
 
 local function Skybox()
-    if foundRemote then serverCmd("Skybox rbxassetid://96065759167499") end
     Lighting:ClearAllChildren()
     local sky = Instance.new("Sky")
     local id = "http://www.roblox.com/asset/?id=96065759167499"
@@ -99,7 +77,6 @@ local function Skybox()
 end
 
 local function Sound()
-    if foundRemote then serverCmd("Sound rbxassetid://122975386332555 volume=10 looped=true") end
     local sound = Instance.new("Sound")
     sound.SoundId = "rbxassetid://122975386332555"
     sound.Looped = true
@@ -109,7 +86,6 @@ local function Sound()
 end
 
 local function Particles()
-    if foundRemote then serverCmd("Particles all rbxassetid://72080024566229") end
     for _, part in pairs(Workspace:GetDescendants()) do
         if part:IsA("BasePart") then
             local particle = Instance.new("ParticleEmitter")
@@ -222,7 +198,6 @@ local function SpinParts()
 end
 
 local function DecalSpam()
-    if foundRemote then serverCmd("DecalSpam rbxassetid://96065759167499") end
     for _, part in pairs(Workspace:GetDescendants()) do
         if part:IsA("BasePart") then
             for _, face in ipairs(Enum.NormalId:GetEnumItems()) do
@@ -235,6 +210,7 @@ local function DecalSpam()
     end
 end
 
+-- SCARY CONSOLE EFFECT
 local function FakeConsole()
     local gui = Instance.new("ScreenGui", PlayerGui)
     gui.Name = "WH1T3_CONSOLE"
@@ -248,11 +224,13 @@ local function FakeConsole()
     text.TextYAlignment = Enum.TextYAlignment.Top
     text.Text = ">>> CONNECTING TO WH1T3 SYSTEM...\n>>> SYSTEM BREACH SUCCESSFUL.\n>>> USER: INFECTED\n>>> ESCAPE: 0%\n>>> ALL DATA: COMPROMISED"
     text.TextWrapped = true
+    -- Auto destroy after 1 second
     task.delay(1, function()
         gui:Destroy()
     end)
 end
 
+-- FAKE JUMPSCARE
 local function Jumpscare()
     local gui = Instance.new("ScreenGui", PlayerGui)
     gui.Name = "EXOVM_JUMPSCARE"
@@ -297,4 +275,3 @@ CreateButton("[ FAKE CONSOLE INFECT ]", 0.78, FakeConsole)
 CreateButton("[ JUMPSCARE ATTACK ]", 0.84, Jumpscare)
 
 print("[ EXOVM GUI FINAL ] -- SYSTEM: INFECTED | ESCAPE: 0% | STATUS: HOPELESS")
-]])()
